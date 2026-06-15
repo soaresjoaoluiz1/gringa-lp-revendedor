@@ -440,6 +440,12 @@
     padding: 15px 22px;
     font-size: 14.5px;
   }
+  /* Mobile: botao outline (WhatsApp) com texto + icone laranja */
+  .hero-actions .btn-outline {
+    color: var(--coral);
+    border-color: rgba(255, 94, 74, 0.6);
+  }
+  .hero-actions .btn-outline svg { color: var(--coral); }
 
   /* "Feito para o Brasil" badge */
   .hero-badge {
@@ -463,7 +469,12 @@
   }
   .hero-badge strong { font-weight: 700; color: #000000; }
   .hero-badge span { white-space: nowrap; color: #000000; }
-  .hero-badge .badge-flag { width: 60px; height: 60px; flex-shrink: 0; object-fit: contain; }
+  .hero-badge .badge-flag {
+    display: block;
+    width: 60px; height: 60px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
 
   .hero-text-badge {
     margin: 8px auto 0;
@@ -517,6 +528,9 @@
       margin-bottom: 0;
     }
     .hero-actions .btn { width: auto; }
+    /* Desktop: botao outline volta pro navy */
+    .hero-actions .btn-outline { color: var(--navy); border-color: var(--line); }
+    .hero-actions .btn-outline svg { color: var(--navy); }
 
     /* Badge "Feito para o Brasil" no canto inferior direito sobre a foto */
     .hero-text-badge { display: none; }
