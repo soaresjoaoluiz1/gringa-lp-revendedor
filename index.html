@@ -872,21 +872,28 @@
     letter-spacing: -0.005em;
   }
 
-  /* Stats strip cream */
+  /* Mobile: 4 cards INDIVIDUAIS, cada um com sua cor pastel */
   .stats-strip {
-    background: #fef7f4;
-    border-radius: 18px;
-    padding: 20px 22px;
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 22px;
+    gap: 12px;
   }
   .stat {
+    background: #fef5f1;
+    border-radius: 14px;
+    padding: 18px 20px;
     display: flex;
     align-items: center;
     gap: 14px;
     position: relative;
   }
+  .stat.is-orange { background: #fef5f1; }
+  .stat.is-pink   { background: #fdf4f5; }
+  .stat.is-purple { background: #f9f5fa; }
+  .stat.is-blue   { background: #f3f7fc; }
   .stat-icon {
     width: 52px; height: 52px;
     border-radius: 50%;
@@ -944,14 +951,25 @@
       flex: 1;
       letter-spacing: -0.005em;
     }
+    /* Desktop: volta pro container UNICO cream com dividers entre stats */
     .stats-strip {
+      background: #fef7f4;
+      border-radius: 18px;
       grid-template-columns: repeat(4, 1fr);
       padding: 22px 18px;
       gap: 0;
     }
     .stat {
+      background: transparent;
+      border-radius: 0;
       padding: 0 22px;
       border-right: 1.5px dashed rgba(40,30,80,0.18);
+    }
+    .stat.is-orange,
+    .stat.is-pink,
+    .stat.is-purple,
+    .stat.is-blue {
+      background: transparent;
     }
     .stat:last-child { border-right: none; }
     .stat-icon { width: 58px; height: 58px; }
