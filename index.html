@@ -794,6 +794,18 @@
     text-transform: uppercase;
     margin: 0;
   }
+  /* Quando tem imagem real, remove estilo placeholder */
+  .product-image.has-img {
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .product-image.has-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-height: 200px;
+  }
 
   @media (min-width: 760px) {
     .products-grid {
@@ -833,6 +845,12 @@
       border-left: none;
       border-right: none;
       border-bottom: none;
+    }
+    /* Desktop: imagem real ocupa toda area com object-fit contain */
+    .product-image.has-img img {
+      max-height: 300px;
+      width: 100%;
+      object-fit: contain;
     }
   }
 
@@ -1936,8 +1954,8 @@
             <p class="product-desc">Perfumação leve, refrescante e viciante.</p>
             <p class="product-volume">200ml</p>
           </div>
-          <div class="product-image" aria-label="Imagem dos 4 body splash Gringa">
-            <span>imagem produto</span>
+          <div class="product-image has-img" aria-label="4 Body Splash Gringa: Bella, Rose, Delírio e Brisa">
+            <img src="assets/body-splashs.png" alt="Linha Body Splash Gringa — 4 fragrâncias" loading="lazy">
           </div>
         </article>
 
