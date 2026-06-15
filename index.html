@@ -1410,6 +1410,286 @@
     }
     .cta-whatsapp-icon svg { color: #25D366; }
   }
+
+  /* ============= LEAD MODAL ============= */
+  .lead-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .lead-modal.is-open { display: flex; }
+  .lead-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(24,30,72,0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: fadeIn .25s ease-out;
+  }
+  .lead-modal-box {
+    position: relative;
+    background: #ffffff;
+    border-radius: 24px;
+    max-width: 480px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(24,30,72,0.3);
+    display: flex;
+    flex-direction: column;
+    animation: modalIn .35s cubic-bezier(.2,.9,.3,1.1);
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Progress bar header */
+  .lead-modal-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px;
+    border-bottom: 1px solid #f0eae0;
+  }
+  .lead-progress {
+    flex: 1;
+    height: 6px;
+    background: #f0eae0;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .lead-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--coral) 0%, #e94560 50%, #6b3aa0 100%);
+    border-radius: 999px;
+    width: 50%;
+    transition: width .4s cubic-bezier(.4,0,.2,1);
+  }
+  .lead-modal[data-step="2"] .lead-progress-fill { width: 100%; }
+  .lead-modal-close {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #f0eae0;
+    color: var(--navy);
+    display: grid;
+    place-items: center;
+    transition: background .15s;
+    flex-shrink: 0;
+  }
+  .lead-modal-close:hover { background: #e6dfd0; }
+  .lead-modal-close svg { width: 16px; height: 16px; stroke-width: 2.4; }
+
+  /* Body scrollable */
+  .lead-modal-body {
+    padding: 26px 24px 28px;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  /* Step screens */
+  .lead-step,
+  .lead-thanks { display: none; }
+  .lead-step.is-active,
+  .lead-thanks.is-active { display: block; }
+
+  .lead-step-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--coral);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+  }
+  .lead-step-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .lead-step-sub {
+    font-size: 13.5px;
+    color: #5d6b7f;
+    line-height: 1.45;
+    margin-bottom: 22px;
+  }
+
+  /* Question block */
+  .lead-q {
+    margin-bottom: 20px;
+  }
+  .lead-q-label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  .lead-yesno {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .lead-yesno button {
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1.5px solid #e6dfd0;
+    background: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+    transition: all .15s;
+  }
+  .lead-yesno button:hover { border-color: var(--coral); }
+  .lead-yesno button.is-selected {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(255,90,60,0.25);
+  }
+  .lead-input {
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 12px;
+    border: 1.5px solid #e6dfd0;
+    background: #ffffff;
+    font-size: 14.5px;
+    color: var(--navy);
+    font-family: inherit;
+    transition: border-color .15s;
+  }
+  .lead-input::placeholder { color: #aab2bd; }
+  .lead-input:focus {
+    outline: none;
+    border-color: var(--coral);
+    box-shadow: 0 0 0 3px rgba(255,90,60,0.1);
+  }
+  .lead-error {
+    color: #d63d2c;
+    font-size: 12px;
+    margin-top: 6px;
+    display: none;
+  }
+  .lead-error.is-visible { display: block; }
+
+  /* Submit/Next button */
+  .lead-cta {
+    width: 100%;
+    padding: 15px 22px;
+    border-radius: 999px;
+    background: var(--coral);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 6px 18px rgba(255,90,60,0.32);
+    transition: background .15s, transform .1s;
+  }
+  .lead-cta:hover { background: var(--coral-600); transform: translateY(-1px); }
+  .lead-cta svg { width: 16px; height: 16px; }
+  .lead-back {
+    background: none;
+    color: #5d6b7f;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px;
+    margin-top: 6px;
+    display: block;
+    margin: 8px auto 0;
+  }
+  .lead-back:hover { color: var(--navy); }
+
+  /* Thank you pages */
+  .lead-thanks { text-align: center; padding: 8px 0 4px; }
+  .lead-thanks-icon {
+    width: 72px; height: 72px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+  }
+  .lead-thanks-sim .lead-thanks-icon {
+    background: linear-gradient(135deg, #26c66f 0%, #1da856 100%);
+    color: #ffffff;
+  }
+  .lead-thanks-nao .lead-thanks-icon {
+    background: linear-gradient(135deg, var(--coral) 0%, #e94560 100%);
+    color: #ffffff;
+  }
+  .lead-thanks-icon svg { width: 38px; height: 38px; stroke-width: 2.6; }
+
+  .lead-thanks-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--navy);
+    line-height: 1.15;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .lead-thanks-text {
+    font-size: 14.5px;
+    color: #4f5b73;
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  .lead-thanks-text strong { color: var(--navy); font-weight: 700; }
+
+  .lead-thanks-actions {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .lead-thanks-wpp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #25D366;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14.5px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(37,211,102,0.32);
+    transition: background .15s, transform .1s;
+  }
+  .lead-thanks-wpp:hover { background: #1fb456; transform: translateY(-1px); }
+  .lead-thanks-wpp svg { width: 18px; height: 18px; }
+  .lead-thanks-close {
+    background: none;
+    color: #5d6b7f;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 10px;
+  }
+  .lead-thanks-close:hover { color: var(--navy); }
+
+  body.modal-open { overflow: hidden; }
+
+  @media (min-width: 600px) {
+    .lead-modal-box { max-width: 520px; }
+    .lead-modal-body { padding: 32px 32px 34px; }
+    .lead-step-title { font-size: 26px; }
+    .lead-step-sub { font-size: 15px; }
+    .lead-thanks-title { font-size: 30px; }
+    .lead-thanks-text { font-size: 15.5px; }
+  }
 </style>
 </head>
 <body>
@@ -1991,6 +2271,147 @@
     </div>
   </section>
 
+  <!-- ============= LEAD MODAL ============= -->
+  <div class="lead-modal" id="leadModal" data-step="1" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
+
+    <div class="lead-modal-backdrop" data-close></div>
+
+    <div class="lead-modal-box">
+
+      <div class="lead-modal-top">
+        <div class="lead-progress" aria-label="Progresso">
+          <div class="lead-progress-fill"></div>
+        </div>
+        <button class="lead-modal-close" aria-label="Fechar" data-close>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" y1="6" x2="18" y2="18"/>
+            <line x1="18" y1="6" x2="6" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="lead-modal-body">
+
+        <!-- ============== STEP 1 ============== -->
+        <form class="lead-step is-active" data-step="1" novalidate>
+          <p class="lead-step-eyebrow">ETAPA 1 DE 2 · QUALIFICAÇÃO</p>
+          <h2 class="lead-step-title" id="leadModalTitle">Vamos te conhecer melhor</h2>
+          <p class="lead-step-sub">Algumas perguntas rápidas pra entender se a parceria faz sentido pra sua loja.</p>
+
+          <div class="lead-q">
+            <label class="lead-q-label">Tem um negócio onde pode vender os produtos Gringa?</label>
+            <div class="lead-yesno" data-name="negocio">
+              <button type="button" data-value="sim">Sim</button>
+              <button type="button" data-value="nao">Não</button>
+            </div>
+          </div>
+
+          <div class="lead-q">
+            <label class="lead-q-label">O pedido mínimo é R$ 1.500. Sua empresa dispõe desse valor para a aquisição?</label>
+            <div class="lead-yesno" data-name="pedido_minimo">
+              <button type="button" data-value="sim">Sim</button>
+              <button type="button" data-value="nao">Não</button>
+            </div>
+          </div>
+
+          <div class="lead-q">
+            <label class="lead-q-label" for="faturamento">Qual o faturamento médio mensal da sua empresa?</label>
+            <input class="lead-input" type="text" id="faturamento" name="faturamento" inputmode="numeric" placeholder="R$ ex: 10.000">
+          </div>
+
+          <p class="lead-error" data-error="step1">Por favor responda todas as perguntas pra continuar.</p>
+
+          <button type="button" class="lead-cta" data-next="2">
+            Continuar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="13 6 19 12 13 18"/>
+            </svg>
+          </button>
+        </form>
+
+        <!-- ============== STEP 2 ============== -->
+        <form class="lead-step" data-step="2" novalidate>
+          <p class="lead-step-eyebrow">ETAPA 2 DE 2 · CONTATO</p>
+          <h2 class="lead-step-title">Quase lá!</h2>
+          <p class="lead-step-sub">Onde a gente fala com você?</p>
+
+          <div class="lead-q">
+            <label class="lead-q-label" for="cidade">Sua cidade</label>
+            <input class="lead-input" type="text" id="cidade" name="cidade" placeholder="Cidade / UF">
+          </div>
+
+          <div class="lead-q">
+            <label class="lead-q-label" for="nome">Nome completo</label>
+            <input class="lead-input" type="text" id="nome" name="nome" placeholder="Seu nome">
+          </div>
+
+          <div class="lead-q">
+            <label class="lead-q-label" for="telefone">WhatsApp</label>
+            <input class="lead-input" type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
+          </div>
+
+          <p class="lead-error" data-error="step2">Preencha todos os campos pra finalizar.</p>
+
+          <button type="button" class="lead-cta" data-submit>
+            Enviar pedido de contato
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </button>
+          <button type="button" class="lead-back" data-back="1">← Voltar</button>
+        </form>
+
+        <!-- ============== THANKS SIM ============== -->
+        <div class="lead-thanks lead-thanks-sim" data-thanks="sim">
+          <div class="lead-thanks-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <h2 class="lead-thanks-title">Tudo certo, parceiro!</h2>
+          <p class="lead-thanks-text">
+            Recebemos seus dados. Nosso time comercial vai entrar em contato no seu <strong>WhatsApp em até 1 dia útil</strong> pra apresentar a linha Gringa e montar uma cotação personalizada pra sua loja.
+          </p>
+          <p class="lead-thanks-text">
+            Enquanto isso, fica de olho no celular. Bora colocar Gringa na sua prateleira. 🚀
+          </p>
+          <div class="lead-thanks-actions">
+            <button type="button" class="lead-thanks-close" data-close>Fechar</button>
+          </div>
+        </div>
+
+        <!-- ============== THANKS NÃO ============== -->
+        <div class="lead-thanks lead-thanks-nao" data-thanks="nao">
+          <div class="lead-thanks-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="8" x2="12" y2="13"/>
+              <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
+              <circle cx="12" cy="12" r="9.5"/>
+            </svg>
+          </div>
+          <h2 class="lead-thanks-title">Vamos pensar juntos?</h2>
+          <p class="lead-thanks-text">
+            Nosso <strong>pedido mínimo é mesmo de R$ 1.500</strong>. Esse valor é o que garante margem boa pra você, preço de fábrica e logística com apoio de marketing local.
+          </p>
+          <p class="lead-thanks-text">
+            Se você puder se organizar pra esse investimento inicial, vale super a pena conversar. A gente ajuda a montar o mix ideal de fragrâncias pro seu público.
+          </p>
+          <div class="lead-thanks-actions">
+            <a href="https://wa.me/5500000000000?text=Oi%20Gringa%2C%20quero%20entender%20melhor%20o%20programa%20de%20revendedor" target="_blank" rel="noopener" class="lead-thanks-wpp">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.45 1.33 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.5 0 9.96-4.46 9.96-9.96 0-2.66-1.04-5.17-2.92-7.05A9.92 9.92 0 0 0 12.04 2zm5.84 14.13c-.25.7-1.45 1.34-2.02 1.43-.52.08-1.18.12-1.9-.12-.44-.14-1.01-.33-1.74-.65-3.05-1.32-5.04-4.39-5.2-4.6-.15-.2-1.24-1.65-1.24-3.15s.79-2.23 1.07-2.54c.28-.31.61-.39.81-.39s.4 0 .58.01c.19.01.44-.07.69.53.25.61.86 2.11.94 2.26.08.16.13.34.03.54-.1.2-.15.33-.3.5-.15.18-.31.39-.45.53-.15.15-.31.31-.13.61.18.3.79 1.31 1.7 2.11 1.17 1.04 2.15 1.36 2.45 1.51.3.15.48.13.66-.08.18-.2.76-.89.96-1.19.2-.3.41-.25.69-.15.28.1 1.79.85 2.1 1 .3.15.51.23.58.36.08.13.08.73-.17 1.43z"/>
+              </svg>
+              Quero conversar mesmo assim
+            </a>
+            <button type="button" class="lead-thanks-close" data-close>Fechar</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init({
@@ -2000,6 +2421,180 @@
       offset: 80,
       disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches
     });
+  </script>
+
+  <!-- ============= LEAD MODAL JS ============= -->
+  <script>
+  (function() {
+    const modal = document.getElementById('leadModal');
+    if (!modal) return;
+    const body = document.body;
+
+    // Botoes que abrem o modal (todas CTAs principais + cart do header)
+    const triggerSelectors = [
+      '.btn-primary.header-cta',          // header desktop CTA
+      '.header-bag',                      // header mobile sacola
+      '.hero-actions .btn-primary',       // hero primary CTA
+      '.cta-banner-btn'                   // CTA banner final
+    ];
+
+    const triggers = document.querySelectorAll(triggerSelectors.join(','));
+    triggers.forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+      });
+    });
+
+    function openModal() {
+      resetModal();
+      modal.classList.add('is-open');
+      body.classList.add('modal-open');
+      // focus primeiro botao de Sim/Nao
+      setTimeout(() => {
+        const firstBtn = modal.querySelector('.lead-step.is-active .lead-yesno button');
+        if (firstBtn) firstBtn.focus();
+      }, 100);
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      body.classList.remove('modal-open');
+    }
+
+    function resetModal() {
+      // Volta pra step 1
+      modal.dataset.step = '1';
+      modal.querySelectorAll('.lead-step, .lead-thanks').forEach(s => s.classList.remove('is-active'));
+      modal.querySelector('.lead-step[data-step="1"]').classList.add('is-active');
+      // Limpa selecoes
+      modal.querySelectorAll('.lead-yesno button').forEach(b => b.classList.remove('is-selected'));
+      // Limpa inputs
+      modal.querySelectorAll('.lead-input').forEach(i => i.value = '');
+      // Esconde erros
+      modal.querySelectorAll('.lead-error').forEach(e => e.classList.remove('is-visible'));
+    }
+
+    // Click em sim/nao - marca selecao por grupo
+    modal.querySelectorAll('.lead-yesno').forEach(group => {
+      group.addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        group.querySelectorAll('button').forEach(b => b.classList.remove('is-selected'));
+        btn.classList.add('is-selected');
+      });
+    });
+
+    // Click em fechar (backdrop, X, fechar buttons)
+    modal.addEventListener('click', (e) => {
+      if (e.target.closest('[data-close]')) {
+        closeModal();
+      }
+    });
+
+    // Esc fecha
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
+
+    // Navegacao step
+    modal.querySelectorAll('[data-next]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!validateStep1()) return;
+        goToStep(btn.dataset.next);
+      });
+    });
+    modal.querySelectorAll('[data-back]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        goToStep(btn.dataset.back);
+      });
+    });
+
+    // Submit
+    const submitBtn = modal.querySelector('[data-submit]');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', () => {
+        if (!validateStep2()) return;
+        // Decide qual thanks mostrar baseado no Q2 (pedido R$1500)
+        const pedidoGroup = modal.querySelector('.lead-yesno[data-name="pedido_minimo"]');
+        const selected = pedidoGroup.querySelector('button.is-selected');
+        const value = selected ? selected.dataset.value : 'nao';
+        showThanks(value === 'sim' ? 'sim' : 'nao');
+      });
+    }
+
+    function goToStep(step) {
+      modal.dataset.step = step;
+      modal.querySelectorAll('.lead-step, .lead-thanks').forEach(s => s.classList.remove('is-active'));
+      const target = modal.querySelector(`.lead-step[data-step="${step}"]`);
+      if (target) target.classList.add('is-active');
+      // Scroll modal body to top
+      modal.querySelector('.lead-modal-body').scrollTop = 0;
+    }
+
+    function showThanks(type) {
+      modal.querySelectorAll('.lead-step, .lead-thanks').forEach(s => s.classList.remove('is-active'));
+      const target = modal.querySelector(`.lead-thanks[data-thanks="${type}"]`);
+      if (target) target.classList.add('is-active');
+      modal.querySelector('.lead-modal-body').scrollTop = 0;
+    }
+
+    function validateStep1() {
+      const errEl = modal.querySelector('[data-error="step1"]');
+      errEl.classList.remove('is-visible');
+
+      // 2 perguntas yes/no devem estar respondidas
+      const negocio = modal.querySelector('.lead-yesno[data-name="negocio"] .is-selected');
+      const pedido = modal.querySelector('.lead-yesno[data-name="pedido_minimo"] .is-selected');
+      const faturamento = modal.querySelector('#faturamento').value.trim();
+
+      if (!negocio || !pedido || !faturamento) {
+        errEl.classList.add('is-visible');
+        return false;
+      }
+      return true;
+    }
+
+    function validateStep2() {
+      const errEl = modal.querySelector('[data-error="step2"]');
+      errEl.classList.remove('is-visible');
+
+      const cidade = modal.querySelector('#cidade').value.trim();
+      const nome = modal.querySelector('#nome').value.trim();
+      const telefone = modal.querySelector('#telefone').value.trim();
+
+      if (!cidade || !nome || telefone.length < 8) {
+        errEl.classList.add('is-visible');
+        return false;
+      }
+      return true;
+    }
+
+    // Mascara simples pra faturamento (apenas numeros + formatacao)
+    const faturamentoInput = modal.querySelector('#faturamento');
+    if (faturamentoInput) {
+      faturamentoInput.addEventListener('input', (e) => {
+        let v = e.target.value.replace(/\D/g, '');
+        if (!v) { e.target.value = ''; return; }
+        v = (parseInt(v, 10) || 0).toLocaleString('pt-BR');
+        e.target.value = 'R$ ' + v;
+      });
+    }
+
+    // Mascara simples pra telefone
+    const telInput = modal.querySelector('#telefone');
+    if (telInput) {
+      telInput.addEventListener('input', (e) => {
+        let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+        if (v.length <= 2) e.target.value = v.length ? '(' + v : '';
+        else if (v.length <= 6) e.target.value = '(' + v.slice(0,2) + ') ' + v.slice(2);
+        else if (v.length <= 10) e.target.value = '(' + v.slice(0,2) + ') ' + v.slice(2,6) + '-' + v.slice(6);
+        else e.target.value = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+      });
+    }
+  })();
   </script>
 
 </body>
