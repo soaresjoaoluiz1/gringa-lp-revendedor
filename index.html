@@ -465,7 +465,11 @@
   .hero-badge span { white-space: nowrap; color: #000000; }
   .hero-badge .badge-flag { width: 60px; height: 60px; flex-shrink: 0; object-fit: contain; }
 
-  .hero-text-badge { margin-top: 6px; }
+  .hero-text-badge {
+    margin: 8px auto 0;
+    display: flex;
+    width: fit-content;
+  }
   .hero-image { display: none; }
 
   /* ============= DESKTOP ============= */
@@ -1331,7 +1335,7 @@
           </div>
 
           <!-- Mobile-only badge inside text block -->
-          <div class="hero-badge hero-text-badge" style="margin-top:18px;">
+          <div class="hero-badge hero-text-badge">
             <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M14 22c-2 4-3 9-2 15 1 6 5 11 11 14 3 1 7 1 11 0 6-2 11-7 12-13 2-7-1-15-7-19-3-2-7-3-10-3-6-1-12 1-15 6z"/>
             </svg>
