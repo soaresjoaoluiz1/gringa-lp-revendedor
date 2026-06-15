@@ -1102,10 +1102,10 @@
   .audience-card {
     background: #fdf3e8;
     border-radius: 20px;
-    padding: 28px 26px;
+    padding: 26px 20px 30px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 22px;
   }
   .audience-title {
     font-family: 'Fraunces', serif;
@@ -1127,7 +1127,8 @@
   .audience-icons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 8px;
+    width: 100%;
   }
   .audience-icon {
     display: flex;
@@ -1135,17 +1136,19 @@
     align-items: center;
     text-align: center;
     gap: 8px;
+    min-width: 0;
   }
   .audience-icon-svg {
-    width: 58px; height: 58px;
+    width: 44px; height: 44px;
     color: var(--navy);
   }
   .audience-icon-svg svg { width: 100%; height: 100%; stroke-width: 1.7; }
   .audience-icon-label {
-    font-size: 13.5px;
+    font-size: 11.5px;
     font-weight: 600;
     color: var(--navy);
     line-height: 1.25;
+    word-wrap: break-word;
   }
 
   /* Imagem do lado (placeholder) */
