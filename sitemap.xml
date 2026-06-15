@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://gringa.ind.br/revendedor/</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://gringa.ind.br/revendedor/assets/hero-desktop.png</image:loc>
+      <image:title>Gringa Cosmético — Programa de Revendedor</image:title>
+      <image:caption>Coloque Gringa na prateleira da sua loja. Body splash e creme hidratante com margem alta e apoio de marketing local.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://gringa.ind.br/revendedor/assets/hero-mobile.png</image:loc>
+      <image:title>Gringa Cosmético · Revenda B2B</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://gringa.ind.br/revendedor/assets/gringa-logo.png</image:loc>
+      <image:title>Logo Gringa Cosmético</image:title>
+    </image:image>
+  </url>
+
+</urlset>
