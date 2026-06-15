@@ -1185,6 +1185,20 @@
         rgba(24,30,72,0.04) 0 10px,
         rgba(24,30,72,0.02) 10px 20px);
     border: 1.5px dashed rgba(24,30,72,0.18);
+    overflow: hidden;
+  }
+  /* Quando tem imagem real */
+  .audience-photo.has-img {
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .audience-photo.has-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 200px;
+    display: block;
   }
 
   @media (min-width: 1080px) {
@@ -2206,8 +2220,8 @@
           </div>
         </div>
 
-        <div class="audience-photo" aria-label="Modelo Gringa">
-          <span>imagem modelo</span>
+        <div class="audience-photo has-img" aria-label="Modelo Gringa Cosmético">
+          <img src="assets/audience-woman.png" alt="Mulher segurando produto Gringa na praia" loading="lazy">
         </div>
 
       </div>
