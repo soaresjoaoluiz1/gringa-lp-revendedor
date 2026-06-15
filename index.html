@@ -254,16 +254,17 @@
     border-bottom: 1px solid #f0eae0;
   }
   .header-inner {
-    display: flex;
+    display: grid;
+    grid-template-columns: 44px 1fr 44px;
     align-items: center;
-    justify-content: space-between;
-    height: 88px;
-    gap: 20px;
+    height: 72px;
+    gap: 12px;
   }
   .brand {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-self: center;
     line-height: 1;
     color: var(--navy);
   }
@@ -284,7 +285,7 @@
   }
   /* Logo pintada de coral via filter CSS */
   .brand img {
-    height: 56px;
+    height: 42px;
     width: auto;
     filter: brightness(0) saturate(100%) invert(49%) sepia(76%) saturate(2078%) hue-rotate(338deg) brightness(101%) contrast(101%);
   }
@@ -340,29 +341,43 @@
     width: 44px; height: 44px;
     border-radius: 12px;
     color: var(--navy);
+    justify-self: start;
   }
-  .nav-toggle svg { width: 24px; height: 24px; }
+  .nav-toggle svg { width: 26px; height: 26px; stroke-width: 2.2; }
+
+  /* Sacola coral no header mobile (mesma cor do CTA) */
+  .header-bag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px; height: 44px;
+    background: var(--coral);
+    color: #ffffff;
+    border-radius: 12px;
+    justify-self: end;
+    box-shadow: 0 3px 10px rgba(255,90,60,0.32);
+  }
+  .header-bag svg { width: 20px; height: 20px; }
 
   /* ============= HERO ============= */
   .hero {
     position: relative;
     overflow: hidden;
-    padding: 32px 0 40px;
-    background: url('assets/hero-mobile.png') no-repeat center center;
+    padding: 22px 0 30px;
+    background: url('assets/hero-mobile-new.png') no-repeat center top;
     background-size: cover;
-    min-height: 560px;
   }
 
-  /* Gradient overlay cream→transparent (mobile: top-down pra texto ficar legível) */
+  /* Gradient overlay - LEFT opaco (area do texto), RIGHT transparente (modelo aparece) */
   .hero::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg,
-      rgba(251,238,222,0.96) 0%,
-      rgba(251,238,222,0.90) 40%,
-      rgba(251,238,222,0.55) 65%,
-      rgba(251,238,222,0.10) 88%);
+    background: linear-gradient(90deg,
+      rgba(251,238,222,0.95) 0%,
+      rgba(251,238,222,0.88) 35%,
+      rgba(251,238,222,0.45) 65%,
+      rgba(251,238,222,0.10) 100%);
     z-index: 0;
     pointer-events: none;
   }
@@ -373,79 +388,92 @@
     flex-direction: column;
   }
 
+  /* Mobile: texto encurtado na ESQUERDA pra modelo aparecer na direita */
+  .hero-text {
+    max-width: 62%;
+    margin-right: auto;
+  }
+
   .hero-tagline {
-    font-size: 11.5px;
+    font-size: 10px;
     font-weight: 700;
     color: var(--coral);
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
 
   .hero-headline {
     font-family: 'Fraunces', serif;
-    font-size: 34px;
+    font-size: 22px;
     font-weight: 700;
     color: var(--navy);
     line-height: 1.1;
     letter-spacing: -0.015em;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
   }
 
   .hero-lead {
-    font-size: 16.5px;
+    font-size: 13px;
     color: #3d4a60;
-    line-height: 1.55;
-    margin-bottom: 22px;
-    max-width: 540px;
+    line-height: 1.5;
+    margin-bottom: 18px;
   }
 
-  /* Feature pills — horizontal flex no mobile (com wrap) */
+  /* Feature pills mobile — 4 colunas, icone em cima + label embaixo */
   .hero-features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px 18px;
-    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 0 -8px 22px;
+    width: calc(100% + 16px);
     list-style: none;
   }
   .hero-feat {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 9px;
-    font-size: 12.5px;
+    text-align: center;
+    gap: 6px;
+    font-size: 10.5px;
     font-weight: 600;
     color: var(--navy);
     line-height: 1.2;
   }
   .feat-icon {
-    width: 46px; height: 46px;
+    width: 40px; height: 40px;
     border-radius: 50%;
-    border: 2.4px solid var(--navy);
+    border: 2px solid var(--navy);
     background: transparent;
     display: grid; place-items: center;
     color: var(--navy);
     flex-shrink: 0;
   }
-  .feat-icon svg { width: 22px; height: 22px; stroke-width: 1.8; }
+  .feat-icon svg { width: 18px; height: 18px; stroke-width: 1.8; }
 
-  /* Hero CTAs */
+  /* Hero CTAs mobile — 2 botoes mesmo tamanho stacked, outline navy */
   .hero-actions {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 18px;
+    gap: 12px;
+    margin-bottom: 14px;
+    margin-top: 4px;
+    /* extende ate as bordas do container pra ficar full-width */
+    margin-left: -8px;
+    margin-right: -8px;
+    width: calc(100% + 16px);
   }
   .hero-actions .btn {
     width: 100%;
-    padding: 15px 22px;
-    font-size: 14.5px;
+    padding: 14px 18px;
+    font-size: 14px;
   }
-  /* Mobile: botao outline (WhatsApp) com texto + icone laranja */
   .hero-actions .btn-outline {
-    color: var(--coral);
-    border-color: rgba(255, 94, 74, 0.6);
+    color: var(--navy);
+    border-color: var(--line);
+    background: #ffffff;
   }
-  .hero-actions .btn-outline svg { color: var(--coral); }
+  .hero-actions .btn-outline svg { color: var(--navy); }
 
   /* "Feito para o Brasil" badge */
   .hero-badge {
@@ -485,12 +513,22 @@
 
   /* ============= DESKTOP ============= */
   @media (min-width: 900px) {
-    .header-inner { height: 108px; }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      height: 108px;
+    }
+    .brand {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-self: auto;
+    }
     .brand-name { font-size: 32px; }
     .brand img { height: 76px; }
     .site-nav { display: inline-flex; }
     .header-cta { display: inline-flex; }
     .nav-toggle { display: none; }
+    .header-bag { display: none; }
 
     /* Hero desktop: imagem full bleed + gradient horizontal cream→transparent */
     .hero {
@@ -508,28 +546,37 @@
     }
 
     .hero-grid { display: block; max-width: 720px; }
-    .hero-text { max-width: 720px; }
+    .hero-text { max-width: 720px; margin-left: 0; }
 
     .hero-tagline { font-size: 13px; margin-bottom: 18px; }
     .hero-headline { font-size: 52px; line-height: 1.08; margin-bottom: 22px; }
-    .hero-lead { font-size: 18px; margin-bottom: 30px; line-height: 1.55; }
+    .hero-lead { font-size: 18px; margin-bottom: 30px; line-height: 1.55; max-width: 540px; }
 
     .hero-features {
+      display: flex;
+      flex-wrap: wrap;
       gap: 22px;
-      margin-bottom: 30px;
+      margin: 0 0 30px;
+      width: auto;
     }
-    .hero-feat { font-size: 13px; gap: 11px; }
+    .hero-feat {
+      flex-direction: row;
+      text-align: left;
+      font-size: 13px;
+      gap: 11px;
+    }
     .feat-icon { width: 54px; height: 54px; border-width: 2.6px; }
     .feat-icon svg { width: 26px; height: 26px; }
 
     .hero-actions {
       flex-direction: row;
       gap: 14px;
-      margin-bottom: 0;
+      margin: 0;
+      width: auto;
     }
-    .hero-actions .btn { width: auto; }
-    /* Desktop: botao outline volta pro navy */
-    .hero-actions .btn-outline { color: var(--navy); border-color: var(--line); }
+    .hero-actions .btn { width: auto; padding: 15px 22px; font-size: 15px; }
+    /* Desktop: outline navy mantido */
+    .hero-actions .btn-outline { color: var(--navy); border-color: var(--line); background: transparent; }
     .hero-actions .btn-outline svg { color: var(--navy); }
 
     /* Badge "Feito para o Brasil" no canto inferior direito sobre a foto */
@@ -1237,6 +1284,14 @@
   <!-- ============= HEADER ============= -->
   <header class="site-header">
     <div class="container header-inner">
+      <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <line x1="4" y1="7" x2="20" y2="7"/>
+          <line x1="4" y1="12" x2="20" y2="12"/>
+          <line x1="4" y1="17" x2="20" y2="17"/>
+        </svg>
+      </button>
+
       <a href="#" class="brand" aria-label="Gringa Cosmético · Programa de Revendedor">
         <img src="assets/gringa-logo.png" alt="Gringa Cosmético · Body Splash e Creme Hidratante para revenda" width="160" height="56" fetchpriority="high">
       </a>
@@ -1256,13 +1311,12 @@
         </svg>
       </a>
 
-      <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <line x1="4" y1="7" x2="20" y2="7"/>
-          <line x1="4" y1="12" x2="20" y2="12"/>
-          <line x1="4" y1="17" x2="20" y2="17"/>
+      <a href="#cta" class="header-bag" aria-label="Quero colocar Gringa na minha loja">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 8h14l-1 12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 8z"/>
+          <path d="M9 8V6a3 3 0 0 1 6 0v2"/>
         </svg>
-      </button>
+      </a>
     </div>
   </header>
 
