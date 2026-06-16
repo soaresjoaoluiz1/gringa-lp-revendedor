@@ -38,6 +38,22 @@
 <link rel="icon" type="image/png" href="assets/gringa-logo.png">
 <link rel="apple-touch-icon" href="assets/gringa-logo.png">
 
+<!-- ============= META PIXEL (Facebook) ============= -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4364319423824322');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4364319423824322&ev=PageView&noscript=1"/></noscript>
+
 <!-- ============= PRELOAD CRITICAL (LCP) ============= -->
 <link rel="preload" as="image" href="assets/hero-mobile-new.webp" media="(max-width: 899px)">
 <link rel="preload" as="image" href="assets/hero-desktop.webp" media="(min-width: 900px)">
@@ -2409,6 +2425,62 @@
     });
   </script>
 
+  <!-- ============= TRACKING CAPTURE (UTM, click IDs, cookies, referrer) ============= -->
+  <script>
+  (function() {
+    const STORAGE_KEY = '_gringa_track';
+    function captureFirstTouch() {
+      if (sessionStorage.getItem(STORAGE_KEY)) return;
+      const params = new URLSearchParams(window.location.search);
+      const firstTouch = {
+        first_referrer: document.referrer || 'direct',
+        first_landing_url: window.location.href,
+        first_visit_at: new Date().toISOString(),
+        utm_source: params.get('utm_source') || '',
+        utm_medium: params.get('utm_medium') || '',
+        utm_campaign: params.get('utm_campaign') || '',
+        utm_content: params.get('utm_content') || '',
+        utm_term: params.get('utm_term') || '',
+        utm_id: params.get('utm_id') || '',
+        fbclid: params.get('fbclid') || '',
+        gclid: params.get('gclid') || '',
+        gbraid: params.get('gbraid') || '',
+        wbraid: params.get('wbraid') || '',
+        ttclid: params.get('ttclid') || '',
+        msclkid: params.get('msclkid') || '',
+        li_fat_id: params.get('li_fat_id') || '',
+        twclid: params.get('twclid') || ''
+      };
+      try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(firstTouch)); } catch(e) {}
+    }
+    function getCookie(name) {
+      const m = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/[.$?*|{}()[\]\\\/+^]/g, '\\$&') + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : '';
+    }
+    window.__getTrackingData = function() {
+      let ft = {};
+      try { ft = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) {}
+      return Object.assign({}, ft, {
+        current_url: window.location.href,
+        current_referrer: document.referrer || 'direct',
+        fbp: getCookie('_fbp'),
+        fbc: getCookie('_fbc'),
+        ga_cid: getCookie('_ga'),
+        gcl_au: getCookie('_gcl_au'),
+        user_agent: navigator.userAgent,
+        language: navigator.language || '',
+        screen: (screen.width || '') + 'x' + (screen.height || ''),
+        timezone: (Intl.DateTimeFormat().resolvedOptions().timeZone) || '',
+        submit_at: new Date().toISOString()
+      });
+    };
+    captureFirstTouch();
+  })();
+  </script>
+  <style>
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  </style>
+
   <!-- ============= LEAD MODAL JS ============= -->
   <script>
   (function() {
@@ -2503,13 +2575,73 @@
     if (submitBtn) {
       submitBtn.addEventListener('click', () => {
         if (!validateStep2()) return;
-        // Decide qual pagina de obrigado abrir baseado no Q2 (pedido R$1500)
-        const pedidoGroup = modal.querySelector('.lead-yesno[data-name="pedido_minimo"]');
-        const selected = pedidoGroup.querySelector('button.is-selected');
-        const value = selected ? selected.dataset.value : 'nao';
-        // Redireciona pra pagina de thanks (event tracking acontece la)
-        const url = value === 'sim' ? 'obrigado-sim.html' : 'obrigado-nao.html';
-        window.location.href = url;
+        if (submitBtn.disabled) return;
+        submitBtn.disabled = true;
+        const originalHTML = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;animation:spin 1s linear infinite"><circle cx="12" cy="12" r="9" opacity="0.25"/><path d="M12 3a9 9 0 0 1 9 9"/></svg> Enviando...';
+
+        // Le respostas + dados
+        const negocioGroup = modal.querySelector('.lead-yesno[data-name="negocio"] .is-selected');
+        const pedidoGroup = modal.querySelector('.lead-yesno[data-name="pedido_minimo"] .is-selected');
+        const negocio = negocioGroup ? negocioGroup.dataset.value : '';
+        const pedido_minimo = pedidoGroup ? pedidoGroup.dataset.value : '';
+        const qualificado = (pedido_minimo === 'sim') ? 'Qualificado' : 'Nao qualificado';
+
+        const payload = {
+          origem: 'LP Revendedor Gringa',
+          nome: modal.querySelector('#nome').value.trim(),
+          whatsapp: modal.querySelector('#telefone').value.trim(),
+          cidade: modal.querySelector('#cidade').value.trim(),
+          tem_negocio: negocio,
+          pedido_minimo_ok: pedido_minimo,
+          status: qualificado
+        };
+
+        // Anexa tracking
+        const tracking = (window.__getTrackingData && window.__getTrackingData()) || {};
+        Object.assign(payload, tracking);
+
+        // EventID pra dedup do Lead entre index e obrigado pages
+        const eventID = 'lead.' + Date.now() + '.' + Math.random().toString(36).slice(2, 8);
+        payload.fb_event_id = eventID;
+
+        // Salva dados pra obrigado pages usarem (Advanced Matching + custom event)
+        try {
+          sessionStorage.setItem('_gringa_lead', JSON.stringify({
+            nome: payload.nome,
+            whatsapp: payload.whatsapp,
+            cidade: payload.cidade,
+            tem_negocio: negocio,
+            pedido_minimo_ok: pedido_minimo,
+            status: qualificado,
+            eventID: eventID
+          }));
+        } catch(e) {}
+
+        // Meta Pixel: Lead event no submit
+        if (window.fbq) {
+          try {
+            fbq('track', 'Lead', {
+              content_name: 'Programa Revendedor Gringa',
+              content_category: 'Cosmeticos B2B',
+              currency: 'BRL',
+              value: 100.00
+            }, { eventID: eventID });
+          } catch(e) { console.error('[fbq] Lead:', e); }
+        }
+
+        const FORM_ENDPOINT = 'COLAR_URL_DO_APPS_SCRIPT_AQUI';
+        const redirectUrl = (pedido_minimo === 'sim') ? 'obrigado-sim.html' : 'obrigado-nao.html';
+
+        fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        }).catch(err => console.error('[form] erro envio:', err))
+          .finally(() => {
+            window.location.href = redirectUrl;
+          });
       });
     }
 

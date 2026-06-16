@@ -20,15 +20,64 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- ============== TRACKING (adicionar IDs reais aqui) ==============
+<!-- ============= META PIXEL BASE + Advanced Matching + Lead-Revendedor ============= -->
 <script>
-  // Google Analytics 4 / GTM
-  // gtag('event', 'lead_nao_qualificado', { send_to: 'AW-XXXXXX/YYYYY' });
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
 
-  // Meta Pixel
-  // fbq('track', 'Lead', { content_name: 'revendedor_nao_qualificado' });
+(function() {
+  let lead = {};
+  try { lead = JSON.parse(sessionStorage.getItem('_gringa_lead') || '{}'); } catch(e) {}
+
+  const advancedMatching = {};
+  if (lead.nome) {
+    const parts = lead.nome.trim().toLowerCase().split(/\s+/);
+    if (parts[0]) advancedMatching.fn = parts[0];
+    if (parts.length > 1) advancedMatching.ln = parts.slice(1).join(' ');
+  }
+  if (lead.whatsapp) {
+    let phone = lead.whatsapp.replace(/\D/g, '');
+    if (phone && !phone.startsWith('55')) phone = '55' + phone;
+    advancedMatching.ph = phone;
+  }
+  if (lead.cidade) advancedMatching.ct = lead.cidade.toLowerCase().replace(/[^a-z0-9]/g, '');
+  advancedMatching.country = 'br';
+
+  fbq('init', '4364319423824322', advancedMatching);
+  fbq('track', 'PageView');
+
+  const eventID = lead.eventID || ('lead.confirm.' + Date.now());
+  try {
+    fbq('track', 'Lead', {
+      content_name: 'Programa Revendedor Gringa',
+      content_category: 'Cosmeticos B2B',
+      currency: 'BRL',
+      value: 10.00
+    }, { eventID: eventID });
+
+    fbq('trackCustom', 'Rev-Menos1500', {
+      content_name: 'Programa Revendedor Gringa (abaixo do minimo)',
+      content_category: 'Cosmeticos B2B',
+      currency: 'BRL',
+      value: 10.00,
+      status: lead.status || 'Nao qualificado',
+      tem_negocio: lead.tem_negocio || '',
+      pedido_minimo_ok: lead.pedido_minimo_ok || '',
+      cidade: lead.cidade || '',
+      lead_source: 'LP Revendedor Gringa',
+      motivo: 'Pedido minimo R$1.500 nao confortavel'
+    }, { eventID: eventID + '.custom' });
+  } catch(e) { console.error('[fbq] track error:', e); }
+})();
 </script>
-==================================================================== -->
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4364319423824322&ev=PageView&noscript=1"/></noscript>
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
