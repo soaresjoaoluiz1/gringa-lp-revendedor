@@ -2345,16 +2345,11 @@
           </div>
 
           <div class="lead-q">
-            <label class="lead-q-label">O pedido mínimo é R$ 1.500. Sua empresa dispõe desse valor para a aquisição?</label>
+            <label class="lead-q-label">Hoje conseguimos iniciar com pedidos a partir de R$ 1.500. Antes de avançarmos, queria entender se essa faixa está confortável para você.</label>
             <div class="lead-yesno" data-name="pedido_minimo">
-              <button type="button" data-value="sim">Sim</button>
-              <button type="button" data-value="nao">Não</button>
+              <button type="button" data-value="sim">Sim, está confortável</button>
+              <button type="button" data-value="nao">Não, está acima</button>
             </div>
-          </div>
-
-          <div class="lead-q">
-            <label class="lead-q-label" for="faturamento">Qual o faturamento médio mensal da sua empresa?</label>
-            <input class="lead-input" type="text" id="faturamento" name="faturamento" inputmode="numeric" placeholder="R$ ex: 10.000">
           </div>
 
           <p class="lead-error" data-error="step1">Por favor responda todas as perguntas pra continuar.</p>
@@ -2539,9 +2534,8 @@
       // 2 perguntas yes/no devem estar respondidas
       const negocio = modal.querySelector('.lead-yesno[data-name="negocio"] .is-selected');
       const pedido = modal.querySelector('.lead-yesno[data-name="pedido_minimo"] .is-selected');
-      const faturamento = modal.querySelector('#faturamento').value.trim();
 
-      if (!negocio || !pedido || !faturamento) {
+      if (!negocio || !pedido) {
         errEl.classList.add('is-visible');
         return false;
       }
@@ -2561,17 +2555,6 @@
         return false;
       }
       return true;
-    }
-
-    // Mascara simples pra faturamento (apenas numeros + formatacao)
-    const faturamentoInput = modal.querySelector('#faturamento');
-    if (faturamentoInput) {
-      faturamentoInput.addEventListener('input', (e) => {
-        let v = e.target.value.replace(/\D/g, '');
-        if (!v) { e.target.value = ''; return; }
-        v = (parseInt(v, 10) || 0).toLocaleString('pt-BR');
-        e.target.value = 'R$ ' + v;
-      });
     }
 
     // Mascara simples pra telefone
