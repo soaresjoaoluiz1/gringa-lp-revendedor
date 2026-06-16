@@ -23,7 +23,7 @@
 <meta property="og:url" content="https://gringa.ind.br/revendedor/">
 <meta property="og:title" content="Seja Revendedor Gringa Cosmético | Margem, Giro e Apoio Regional">
 <meta property="og:description" content="Coloque Gringa na prateleira. A gente leva clientes até sua loja ou distribuidora. Body splash + creme hidratante com R$41,90 de lucro bruto por unidade.">
-<meta property="og:image" content="https://gringa.ind.br/revendedor/assets/hero-desktop.png">
+<meta property="og:image" content="https://gringa.ind.br/revendedor/assets/hero-desktop.webp">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Linha Gringa Cosmético — Body Splash e Creme Hidratante para revenda">
@@ -32,17 +32,22 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Seja Revendedor Gringa Cosmético | Margem, Giro e Apoio Regional">
 <meta name="twitter:description" content="Coloque Gringa na prateleira. A gente leva clientes até sua loja ou distribuidora. Lucro bruto de R$41,90/un.">
-<meta name="twitter:image" content="https://gringa.ind.br/revendedor/assets/hero-desktop.png">
+<meta name="twitter:image" content="https://gringa.ind.br/revendedor/assets/hero-desktop.webp">
 
 <!-- ============= FAVICON / ICONS ============= -->
 <link rel="icon" type="image/png" href="assets/gringa-logo.png">
 <link rel="apple-touch-icon" href="assets/gringa-logo.png">
 
+<!-- ============= PRELOAD CRITICAL (LCP) ============= -->
+<link rel="preload" as="image" href="assets/hero-mobile-new.webp" media="(max-width: 899px)">
+<link rel="preload" as="image" href="assets/hero-desktop.webp" media="(min-width: 900px)">
+
 <!-- ============= FONTS ============= -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<link rel="preload" href="https://unpkg.com/aos@2.3.4/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"></noscript>
 
 <!-- ============= STRUCTURED DATA (Schema.org JSON-LD) ============= -->
 <script type="application/ld+json">
@@ -370,7 +375,7 @@
   /* Mobile: area SUPERIOR com bg image (texto sobreposto) */
   .hero-image-area {
     position: relative;
-    background: url('assets/hero-mobile-new.png') no-repeat top center;
+    background: url('assets/hero-mobile-new.webp') no-repeat top center;
     background-size: cover;
     padding: 22px 0 28px;
     min-height: 480px;
@@ -544,7 +549,7 @@
       position: relative;
       padding: 56px 0 64px;
       min-height: 620px;
-      background: url('assets/hero-desktop.png') no-repeat center right;
+      background: url('assets/hero-desktop.webp') no-repeat center right;
       background-size: cover;
     }
     .hero::before {
@@ -1969,7 +1974,7 @@
             <p class="product-volume">200ml</p>
           </div>
           <div class="product-image has-img" aria-label="4 Body Splash Gringa: Bella, Rose, Delírio e Brisa">
-            <img src="assets/body-splashs.png" alt="Linha Body Splash Gringa — 4 fragrâncias" loading="lazy">
+            <img src="assets/body-splashs.webp" alt="Linha Body Splash Gringa — 4 fragrâncias" loading="lazy">
           </div>
         </article>
 
@@ -1980,7 +1985,7 @@
             <p class="product-volume">200ml</p>
           </div>
           <div class="product-image has-img" aria-label="4 Cremes Hidratantes Gringa: Bella, Rose, Delírio e Brisa">
-            <img src="assets/cremes-gringa.png" alt="Linha Creme Hidratante Gringa — 4 fragrâncias" loading="lazy">
+            <img src="assets/cremes-gringa.webp" alt="Linha Creme Hidratante Gringa — 4 fragrâncias" loading="lazy">
           </div>
         </article>
 
@@ -1990,7 +1995,7 @@
             <p class="product-desc">Body Splash 200ml<br>+ Creme Hidratante 200ml</p>
           </div>
           <div class="product-image has-img" aria-label="Kit Perfumado Gringa: Body Splash + Creme Hidratante">
-            <img src="assets/kit-gringa.png" alt="Kit Perfumado Gringa — Body Splash 200ml + Creme Hidratante 200ml" loading="lazy">
+            <img src="assets/kit-gringa.webp" alt="Kit Perfumado Gringa — Body Splash 200ml + Creme Hidratante 200ml" loading="lazy">
           </div>
         </article>
 
@@ -2221,7 +2226,7 @@
         </div>
 
         <div class="audience-photo has-img" aria-label="Modelo Gringa Cosmético">
-          <img src="assets/audience-woman.png" alt="Mulher segurando produto Gringa na praia" loading="lazy">
+          <img src="assets/audience-woman.webp" alt="Mulher segurando produto Gringa na praia" loading="lazy">
         </div>
 
       </div>
@@ -2399,14 +2404,18 @@
     </div>
   </div>
 
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 650,
-      easing: 'ease-out-cubic',
-      once: true,
-      offset: 80,
-      disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+  <script defer>
+    window.addEventListener('load', () => {
+      if (window.AOS) {
+        AOS.init({
+          duration: 650,
+          easing: 'ease-out-cubic',
+          once: true,
+          offset: 80,
+          disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        });
+      }
     });
   </script>
 
