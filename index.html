@@ -2419,6 +2419,11 @@ src="https://www.facebook.com/tr?id=4364319423824322&ev=PageView&noscript=1"/></
           </div>
 
           <div class="lead-q">
+            <label class="lead-q-label" for="empresa">Nome da empresa</label>
+            <input class="lead-input" type="text" id="empresa" name="empresa" placeholder="Farmácia, perfumaria, distribuidora...">
+          </div>
+
+          <div class="lead-q">
             <label class="lead-q-label" for="telefone">WhatsApp</label>
             <input class="lead-input" type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
           </div>
@@ -2618,6 +2623,7 @@ src="https://www.facebook.com/tr?id=4364319423824322&ev=PageView&noscript=1"/></
         const payload = {
           origem: 'LP Revendedor Gringa',
           nome: modal.querySelector('#nome').value.trim(),
+          empresa: modal.querySelector('#empresa').value.trim(),
           whatsapp: modal.querySelector('#telefone').value.trim(),
           cidade: modal.querySelector('#cidade').value.trim(),
           tem_negocio: negocio,
@@ -2637,6 +2643,7 @@ src="https://www.facebook.com/tr?id=4364319423824322&ev=PageView&noscript=1"/></
         try {
           sessionStorage.setItem('_gringa_lead', JSON.stringify({
             nome: payload.nome,
+            empresa: payload.empresa,
             whatsapp: payload.whatsapp,
             cidade: payload.cidade,
             tem_negocio: negocio,
@@ -2710,9 +2717,10 @@ src="https://www.facebook.com/tr?id=4364319423824322&ev=PageView&noscript=1"/></
 
       const cidade = modal.querySelector('#cidade').value.trim();
       const nome = modal.querySelector('#nome').value.trim();
+      const empresa = modal.querySelector('#empresa').value.trim();
       const telefone = modal.querySelector('#telefone').value.trim();
 
-      if (!cidade || !nome || telefone.length < 8) {
+      if (!cidade || !nome || !empresa || telefone.length < 8) {
         errEl.classList.add('is-visible');
         return false;
       }
